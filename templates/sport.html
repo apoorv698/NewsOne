@@ -16,12 +16,12 @@
 		<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 			<header class="mdl-layout__header mdl-layout__header--waterfall portfolio-header">
 				<div class="mdl-layout__header-row portfolio-logo-row">
-					<span class="mdl-layout__title">
-						<div class="portfolio-logo">
-							<img src="http://www.mediainfoline.com/wp-content/uploads/2016/06/nexGTv-News-App-Logo.jpg?x53413">
-						</div>
-						<span class="mdl-layout__title">News App</span>
-					</span>
+					<div class="portfolio-logo">
+						<img src="http://www.mediainfoline.com/wp-content/uploads/2016/06/nexGTv-News-App-Logo.jpg?x53413" <!--width="120px" height="150px"-->
+					</div>
+					<div class="mdl-layout__title_row">
+						NewsOne
+					</div>
 				</div>
 				<div class="mdl-layout__header-row portfolio-navigation-row mdl-layout--large-screen-only">
 					<nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
@@ -48,26 +48,26 @@
 			</div>
 			<main class="mdl-layout__content">
 				<div class="mdl-grid portfolio-max-width">
+					{% for ni in newsItem %}
 					
-					make this thing to loop untill all the links are processed
-					<div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
-						<div class="progress">
-							<div class="indeterminate"></div>
+						<div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
+							<div class="progress">
+								<div class="indeterminate"></div>
+							</div>
+							<div class="mdl-card__media">
+								<img class="article-image" src={{ni.imgurl}} border="0" alt="">
+							</div>
+							<div class="mdl-card__title">
+								<h2 class="mdl-card__title-text">{{ni.title}}</h2>
+							</div>
+							<div class="mdl-card__supporting-text">
+								
+							</div>
+							<div class="mdl-card__actions mdl-card--border">
+								<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href={{ni.link}}>Read more</a>
+							</div>
 						</div>
-						<div class="mdl-card__media">
-							<img class="article-image" src="image link for first news--<>" border="0" alt="">
-						</div>
-						<div class="mdl-card__title">
-							<h2 class="mdl-card__title-text">Blog template</h2>
-						</div>
-						<div class="mdl-card__supporting-text">
-							Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure enim nostrud aliqua consectetur ad consectetur sunt ullamco officia. Ex officia laborum et consequat duis.
-						</div>
-						<div class="mdl-card__actions mdl-card--border">
-							<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href="portfolio-example01.html">Read more</a>
-						</div>
-					</div>
-					
+					{% endfor %}
 					<!--
 					useless piece of crap
 					<div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
