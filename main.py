@@ -48,7 +48,7 @@ class News(object):
 	
 class MainHandler(Intermediat):
 	def get(self):		
-		url="https://rss.msn.com/en-in/"
+		url="https://www.hindustantimes.com/rss/cities/delhi/rssfeed.xml"
 		#logging.error(url)
 		try:
 			#logging.error(url)
@@ -66,21 +66,13 @@ class MainHandler(Intermediat):
 				#logging.error(titl)
 				data = it.getElementsByTagName('link')[0].childNodes[0].nodeValue
 				#logging.error(data)
-				imgurl = it.getElementsByTagName('description')[0].childNodes[0].nodeValue
-				f=0
-				i=0
-				s=e=0
-				for i in range(len(imgurl)):
-					if imgurl[i]=='"':
-						f+=1
-						if f==3:
-							s=i
-						if f==4:
-							e=i
-							break
-				newsitm=News(titl,data,imgurl[s+1:e],"")
+				description = it.getElementsByTagName('description')[0].childNodes[0].nodeValue
+				#logging.error(titl)
+				#logging.error(data)
+				imgurl = it.getElementsByTagName('media:content')[0].getAttribute('url')
+				newsitm=News(titl,data,imgurl,description)
 				newsItem.append(newsitm)
-				#logging.error(News(title,data))
+				#logging.error(News(title,data)))
 			
 			#for ni in newsItem:
 				#logging.error( ni.title+"    "+ni.link)
