@@ -40,14 +40,15 @@ class Intermediat(webapp2.RequestHandler):
 		self.write(self.render_str(template,**kw))
 
 class News(object):
-    def __init__(self, title, link, imgurl):
+    def __init__(self, title, link, imgurl, description):
         self.title=title
         self.link=link
         self.imgurl=imgurl
+        self.description=description
 	
 class MainHandler(Intermediat):
 	def get(self):		
-		url="https://rss.msn.com/en-in/"
+		url="https://www.hindustantimes.com/rss/cities/delhi/rssfeed.xml"
 		#logging.error(url)
 		try:
 			#logging.error(url)
@@ -65,21 +66,13 @@ class MainHandler(Intermediat):
 				#logging.error(titl)
 				data = it.getElementsByTagName('link')[0].childNodes[0].nodeValue
 				#logging.error(data)
-				imgurl = it.getElementsByTagName('description')[0].childNodes[0].nodeValue
-				f=0
-				i=0
-				s=e=0
-				for i in range(len(imgurl)):
-					if imgurl[i]=='"':
-						f+=1
-						if f==3:
-							s=i
-						if f==4:
-							e=i
-							break
-				newsitm=News(titl,data,imgurl[s+1:e])
+				description = it.getElementsByTagName('description')[0].childNodes[0].nodeValue
+				#logging.error(titl)
+				#logging.error(data)
+				imgurl = it.getElementsByTagName('media:content')[0].getAttribute('url')
+				newsitm=News(titl,data,imgurl,description)
 				newsItem.append(newsitm)
-				#logging.error(News(title,data))
+				#logging.error(News(title,data)))
 			
 			#for ni in newsItem:
 				#logging.error( ni.title+"    "+ni.link)
@@ -108,7 +101,25 @@ class National(Intermediat):
 				#logging.error(titl)
 				data = it.getElementsByTagName('link')[0].childNodes[0].nodeValue
 				#logging.error(data)
-				newsitm=News(titl,data,"")
+				imgurl=""
+				description=""
+				try:
+					imgurl = it.getElementsByTagName('description')[0].childNodes[0].nodeValue
+					f=0
+					i=0
+					s=e=0
+					for i in range(len(imgurl)):
+						if imgurl[i]=='"':
+							f+=1
+							if f==11:
+								s=i
+							if f==12:
+								e=i
+								break
+					description = imgurl[e+9:]
+				except:
+					pass
+				newsitm=News(titl,data,imgurl[s+1:e],description)
 				newsItem.append(newsitm)
 				#logging.error(News(title,data))
 			
@@ -119,7 +130,197 @@ class National(Intermediat):
 			logging.error('except case')
 			print "Exception occured: "+str(e)
 
+class Technology(Intermediat):
+	def get(self):		
+		url="https://gadgets.ndtv.com/rss/feeds"
+		#logging.error(url)
+		try:
+			#logging.error(url)
+			link=req = urllib2.Request(url, headers={'User-Agent' : "Magic Browser"})
+			content=urllib2.urlopen(link).read()
+			xmlparsed=minidom.parseString(content)
+			#logging.error( xmlparsed.toprettyxml())
+			alerts=''
+			upperitems=xmlparsed.getElementsByTagName('channel')[0]
+			items=upperitems.getElementsByTagName('item')
+			newsItem = []
+			#logging.error('fgdg')
+			count=0
+			for it in items:
+				if count >30:
+					break
+				titl = it.getElementsByTagName('title')[0].childNodes[0].nodeValue
+				#logging.error(titl)
+				data = it.getElementsByTagName('link')[0].childNodes[0].nodeValue
+				#logging.error(data)
+				imgurl = it.getElementsByTagName('storyimage')[0].childNodes[0].nodeValue
+				description = it.getElementsByTagName('description')[0].childNodes[0].nodeValue
+				newsitm=News(titl,data,imgurl,description)
+				newsItem.append(newsitm)
+				#logging.error(News(title,data))
+				count+=1
+			
+			#for ni in newsItem:
+				#logging.error( ni.title+"    "+ni.link)
+			self.render('sci.html',newsItem=newsItem)
+		except Exception as e:
+			logging.error('except case')
+			print "Exception occured: "+str(e)
+			
+class Sports(Intermediat):
+	def get(self):		
+		url="https://www.hindustantimes.com/rss/sports/rssfeed.xml"
+		#logging.error(url)
+		try:
+			#logging.error(url)
+			link=req = urllib2.Request(url, headers={'User-Agent' : "Magic Browser"})
+			content=urllib2.urlopen(link).read()
+			xmlparsed=minidom.parseString(content)
+			#logging.error( xmlparsed.toprettyxml())
+			upperitems=xmlparsed.getElementsByTagName('channel')[0]
+			items=upperitems.getElementsByTagName('item')
+			newsItem = []
+			#logging.error('fgdg')
+			for it in items:
+				titl = it.getElementsByTagName('title')[0].childNodes[0].nodeValue
+				#logging.error(titl)
+				data = it.getElementsByTagName('link')[0].childNodes[0].nodeValue
+				#logging.error(data)
+				description = it.getElementsByTagName('description')[0].childNodes[0].nodeValue
+				#logging.error(titl)
+				#logging.error(data)
+				imgurl = it.getElementsByTagName('media:content')[0].getAttribute('url')
+				newsitm=News(titl,data,imgurl,description)
+				newsItem.append(newsitm)
+				#logging.error(News(title,data))
+			
+			#for ni in newsItem:
+				#logging.error( ni.title+"    "+ni.link)
+			self.render('sport.html',newsItem=newsItem)
+		except Exception as e:
+			logging.error('except case')
+			print "Exception occured: "+str(e)
+			
+class Entertainment(Intermediat):
+	def get(self):		
+		url="https://timesofindia.indiatimes.com/rssfeeds/1081479906.cms"
+		#logging.error(url)
+		try:
+			#logging.error(url)
+			link=req = urllib2.Request(url, headers={'User-Agent' : "Magic Browser"})
+			content=urllib2.urlopen(link).read()
+			xmlparsed=minidom.parseString(content)
+			#logging.error( xmlparsed.toprettyxml())
+			alerts=''
+			upperitems=xmlparsed.getElementsByTagName('channel')[0]
+			items=upperitems.getElementsByTagName('item')
+			newsItem = []
+			#logging.error('fgdg')
+			for it in items:
+				titl = it.getElementsByTagName('title')[0].childNodes[0].nodeValue
+				#logging.error(titl)
+				data = it.getElementsByTagName('link')[0].childNodes[0].nodeValue
+				#logging.error(data)
+				imgurl = it.getElementsByTagName('description')[0].childNodes[0].nodeValue
+				f=0
+				i=0
+				s=e=0
+				for i in range(len(imgurl)):
+					if imgurl[i]=='"':
+						f+=1
+						if f==11:
+							s=i
+						if f==12:
+							e=i
+							break
+				newsitm=News(titl,data,imgurl[s+1:e],"")
+				newsItem.append(newsitm)
+				#logging.error(News(title,data))
+			
+			#for ni in newsItem:
+				#logging.error( ni.title+"    "+ni.link)
+			self.render('national.html',newsItem=newsItem)
+		except Exception as e:
+			logging.error('except case')
+			print "Exception occured: "+str(e)
+			
+class Business(Intermediat):
+	def get(self):		
+		url="https://economictimes.indiatimes.com/rssfeedsdefault.cms"
+		#logging.error(url)
+		try:
+			#logging.error(url)
+			link=req = urllib2.Request(url, headers={'User-Agent' : "Magic Browser"})
+			content=urllib2.urlopen(link).read()
+			xmlparsed=minidom.parseString(content)
+			#logging.error( xmlparsed.toprettyxml())
+			alerts=''
+			upperitems=xmlparsed.getElementsByTagName('channel')[0]
+			items=upperitems.getElementsByTagName('item')
+			newsItem = []
+			#logging.error('fgdg')
+			for it in items:
+				titl = it.getElementsByTagName('title')[0].childNodes[0].nodeValue
+				#logging.error(titl)
+				data = it.getElementsByTagName('link')[0].childNodes[0].nodeValue
+				#logging.error(data)
+				imgurl=""
+				try:
+					imgurl = it.getElementsByTagName('image')[0].childNodes[0].nodeValue
+				except:
+					imgurl = ""
+				description = " "
+				try:
+					description = it.getElementsByTagName('description')[0].childNodes[0].nodeValue
+				except:
+					description = ""
+				newsitm=News(titl,data,imgurl,description)
+				newsItem.append(newsitm)
+				#logging.error(News(title,data))
+			
+			#for ni in newsItem:
+				#logging.error( ni.title+"    "+ni.link)
+			logging.error("last")
+			self.render('business.html',newsItem=newsItem)
+			logging.error("final")
+		except Exception as e:
+			logging.error('except case')
+			print "Exception occured: "+str(e)
+			
+class Global(Intermediat):
+	def get(self):		
+		url="https://www.hindustantimes.com/rss/world/rssfeed.xml"
+		#logging.error(url)
+		try:
+			#logging.error(url)
+			link=req = urllib2.Request(url, headers={'User-Agent' : "Magic Browser"})
+			content=urllib2.urlopen(link).read()
+			xmlparsed=minidom.parseString(content)
+			#logging.error( xmlparsed.toprettyxml())
+			upperitems=xmlparsed.getElementsByTagName('channel')[0]
+			items=upperitems.getElementsByTagName('item')
+			newsItem = []
+			#logging.error('fgdg')
+			for it in items:
+				titl = it.getElementsByTagName('title')[0].childNodes[0].nodeValue
+				#logging.error(titl)
+				data = it.getElementsByTagName('link')[0].childNodes[0].nodeValue
+				#logging.error(data)
+				description = it.getElementsByTagName('description')[0].childNodes[0].nodeValue
+				#logging.error(titl)
+				#logging.error(data)
+				imgurl = it.getElementsByTagName('media:content')[0].getAttribute('url')
+				newsitm=News(titl,data,imgurl,description)
+				newsItem.append(newsitm)
+				#logging.error(News(title,data))
+			
+			#for ni in newsItem:
+				#logging.error( ni.title+"    "+ni.link)
+			self.render('global.html',newsItem=newsItem)
+		except Exception as e:
+			logging.error('except case')
+			print "Exception occured: "+str(e)
 
 app = webapp2.WSGIApplication([
-	('/national.html',National),('/',MainHandler)
+	('/national.html',National),('/index.html',MainHandler),('/sci.html',Technology),('/sport.html',Sports), ('/entertain.html',Entertainment),('/business.html',Business), ('/global.html', Global)
 ], debug=True)
