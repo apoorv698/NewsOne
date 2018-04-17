@@ -55,8 +55,7 @@ class MainHandler(Intermediat):
 			link=req = urllib2.Request(url, headers={'User-Agent' : "Magic Browser"})
 			content=urllib2.urlopen(link).read()
 			xmlparsed=minidom.parseString(content)
-			#logging.error( xmlparsed.toprettyxml())
-			alerts=''
+			#logging.error(xmlparsed.toprettyxml())
 			upperitems=xmlparsed.getElementsByTagName('channel')[0]
 			items=upperitems.getElementsByTagName('item')
 			newsItem = []
@@ -91,7 +90,6 @@ class National(Intermediat):
 			content=urllib2.urlopen(link).read()
 			xmlparsed=minidom.parseString(content)
 			#logging.error( xmlparsed.toprettyxml())
-			alerts=''
 			upperitems=xmlparsed.getElementsByTagName('channel')[0]
 			items=upperitems.getElementsByTagName('item')
 			newsItem = []
@@ -101,7 +99,28 @@ class National(Intermediat):
 				#logging.error(titl)
 				data = it.getElementsByTagName('link')[0].childNodes[0].nodeValue
 				#logging.error(data)
-				newsitm=News(titl,data,"","")
+				imgurl=""
+				description=""
+				s=e=0
+				#logging.error("asda")
+				try:
+					imgurl = it.getElementsByTagName('description')[0].childNodes[0].nodeValue
+					f=0
+					i=0
+					for i in range(len(imgurl)):
+						if imgurl[i]=='"':
+							f+=1
+							if f==11:
+								s=i
+							if f==12:
+								e=i
+								break
+					description = imgurl[e+9:]
+					#logging.error('las')
+				except:
+					s=-1
+				#logging.error('ds')
+				newsitm=News(titl,data,imgurl[s+1:e],description)
 				newsItem.append(newsitm)
 				#logging.error(News(title,data))
 			
@@ -122,12 +141,14 @@ class Technology(Intermediat):
 			content=urllib2.urlopen(link).read()
 			xmlparsed=minidom.parseString(content)
 			#logging.error( xmlparsed.toprettyxml())
-			alerts=''
 			upperitems=xmlparsed.getElementsByTagName('channel')[0]
 			items=upperitems.getElementsByTagName('item')
 			newsItem = []
 			#logging.error('fgdg')
+			count=0
 			for it in items:
+				if count >30:
+					break
 				titl = it.getElementsByTagName('title')[0].childNodes[0].nodeValue
 				#logging.error(titl)
 				data = it.getElementsByTagName('link')[0].childNodes[0].nodeValue
@@ -137,6 +158,7 @@ class Technology(Intermediat):
 				newsitm=News(titl,data,imgurl,description)
 				newsItem.append(newsitm)
 				#logging.error(News(title,data))
+				count+=1
 			
 			#for ni in newsItem:
 				#logging.error( ni.title+"    "+ni.link)
@@ -189,7 +211,6 @@ class Entertainment(Intermediat):
 			content=urllib2.urlopen(link).read()
 			xmlparsed=minidom.parseString(content)
 			#logging.error( xmlparsed.toprettyxml())
-			alerts=''
 			upperitems=xmlparsed.getElementsByTagName('channel')[0]
 			items=upperitems.getElementsByTagName('item')
 			newsItem = []
@@ -258,9 +279,9 @@ class Business(Intermediat):
 			
 			#for ni in newsItem:
 				#logging.error( ni.title+"    "+ni.link)
-			logging.error("last")
+			#logging.error("last")
 			self.render('business.html',newsItem=newsItem)
-			logging.error("final")
+			#logging.error("final")
 		except Exception as e:
 			logging.error('except case')
 			print "Exception occured: "+str(e)
