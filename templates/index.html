@@ -1,31 +1,35 @@
 <html>
 	<head>
+		<meta http-equiv="refresh" content="600; URL=http://newsone-newsreading.appspot.com/index.html">
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="description" content="A portfolio template that uses Material Design Lite.">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 		<title>NewsOne - The News Reading App</title>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
-		<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.grey-pink.min.css" />
+		<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css" />
 		<link rel="stylesheet" href="styles.css" />
-
-
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	</head>
 	<body>
 		<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-			<header class="mdl-layout__header mdl-layout__header--waterfall portfolio-header">
-				<div class="mdl-layout__header-row portfolio-logo-row">
-					<div class="portfolio-logo">
-						<img src="http://www.mediainfoline.com/wp-content/uploads/2016/06/nexGTv-News-App-Logo.jpg?x53413" <!--width="120px" height="150px"-->
-					</div>
-					<div class="mdl-layout__title_row">
-						NewsOne
-					</div>
+			<header class="mdl-layout__header">
+				<div class="mdl-layout__header-row">
+		      <span class="mdl-layout-title">NewsOne</span>
+		    </div>
+				<div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-layout--large-screen-only mdl-layout--fixed-tabs">
+							<a class="mdl-layout__tab is-active" href="index.html">City</a>
+							<a class="mdl-layout__tab" href="national.html">National</a>
+							<a class="mdl-layout__tab" href="global.html">Global</a>
+							<a class="mdl-layout__tab" href="business.html">Business</a>
+							<a class="mdl-layout__tab" href="sport.html">Sports</a>
+							<a class="mdl-layout__tab" href="entertain.html">Entertainment</a>
+							<a class="mdl-layout__tab" href="sci.html">Technology</a>
 				</div>
-				<div class="mdl-layout__header-row portfolio-navigation-row mdl-layout--large-screen-only">
-					<nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
-						<a class="mdl-navigation__link is-active" href="index.html">City</a>
+			</header>
+			<div class="mdl-layout__drawer mdl-layout--small-screen-only">
+				<nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
+						<a class="mdl-navigation__link" href="index.html">City</a>
 						<a class="mdl-navigation__link" href="national.html">National</a>
 						<a class="mdl-navigation__link" href="global.html">Global</a>
 						<a class="mdl-navigation__link" href="business.html">Business</a>
@@ -33,23 +37,10 @@
 						<a class="mdl-navigation__link" href="entertain.html">Entertainment</a>
 						<a class="mdl-navigation__link" href="sci.html">Technology</a>
 					</nav>
-				</div>
-			</header>
-			<div class="mdl-layout__drawer mdl-layout--small-screen-only">
-				<nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
-					<a class="mdl-navigation__link is-active" href="index.html">City</a>
-						<a class="mdl-navigation__link" href="national.html">National</a>
-						<a class="mdl-navigation__link" href="global.html">Global</a>
-						<a class="mdl-navigation__link" href="business.html">Business</a>
-						<a class="mdl-navigation__link" href="sport.html">Sports</a>
-						<a class="mdl-navigation__link" href="entertain.html">Entertainment</a>
-						<a class="mdl-navigation__link" href="sci.html">Technology</a>
-				</nav>
 			</div>
 			<main class="mdl-layout__content">
 				<div class="mdl-grid portfolio-max-width">
 					{% for ni in newsItem %}
-					
 						<div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
 							<div class="progress">
 								<div class="indeterminate"></div>
@@ -64,125 +55,10 @@
 								{{ni.description}}
 							</div>
 							<div class="mdl-card__actions mdl-card--border">
-								<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href={{ni.link}}>Read more</a>
+								<a target="_blank" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href={{ni.link}}>Read more <i class="material-icons">open_in_new</i></a>
 							</div>
 						</div>
 					{% endfor %}
-					<!--
-					useless piece of crap
-					<div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
-						<div class="mdl-card__media">
-							<img class="article-image" src=" images/example-work07.jpg" border="0" alt="">
-						</div>
-						<div class="mdl-card__title">
-							<h2 class="mdl-card__title-text">Sunt nulla</h2>
-						</div>
-						<div class="mdl-card__supporting-text">
-							Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure enim nostrud aliqua consectetur ad consectetur sunt ullamco officia. Ex officia laborum et consequat duis.
-						</div>
-						<div class="mdl-card__actions mdl-card--border">
-							<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href="portfolio-example01.html">Read more</a>
-						</div>
-					</div>
-					<div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
-						<div class="mdl-card__media">
-							<img class="article-image" src=" images/example-work02.jpg" border="0" alt="">
-						</div>
-						<div class="mdl-card__title">
-							<h2 class="mdl-card__title-text">Android.com website</h2>
-						</div>
-						<div class="mdl-card__supporting-text">
-							Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure enim nostrud aliqua consectetur ad consectetur sunt ullamco officia. Ex officia laborum et consequat duis.
-						</div>
-						<div class="mdl-card__actions mdl-card--border">
-							<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href="portfolio-example01.html">Read more</a>
-						</div>
-					</div>
-					<div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
-						<div class="mdl-card__media">
-							<img class="article-image" src=" images/example-work03.jpg" border="0" alt="">
-						</div>
-						<div class="mdl-card__title">
-							<h2 class="mdl-card__title-text">Dashboard template</h2>
-						</div>
-						<div class="mdl-card__supporting-text">
-							Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure enim nostrud aliqua consectetur ad consectetur sunt ullamco officia. Ex officia laborum et consequat duis.
-						</div>
-						<div class="mdl-card__actions mdl-card--border">
-							<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href="portfolio-example01.html">Read more</a>
-						</div>
-					</div>
-					<div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
-						<div class="mdl-card__media">
-							<img class="article-image" src=" images/example-work04.jpg" border="0" alt="">
-						</div>
-						<div class="mdl-card__title">
-							<h2 class="mdl-card__title-text">Text-heavy website</h2>
-						</div>
-						<div class="mdl-card__supporting-text">
-							Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure enim nostrud aliqua consectetur ad consectetur sunt ullamco officia. Ex officia laborum et consequat duis.
-						</div>
-						<div class="mdl-card__actions mdl-card--border">
-							<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href="portfolio-example01.html">Read more</a>
-						</div>
-					</div>
-					<div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
-						<div class="mdl-card__media">
-							<img class="article-image" src=" images/example-work08.jpg" border="0" alt="">
-						</div>
-						<div class="mdl-card__title">
-							<h2 class="mdl-card__title-text">Ex officia laborum</h2>
-						</div>
-						<div class="mdl-card__supporting-text">
-							Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure enim nostrud aliqua consectetur ad consectetur sunt ullamco officia. Ex officia laborum et consequat duis.
-						</div>
-						<div class="mdl-card__actions mdl-card--border">
-							<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href="portfolio-example01.html">Read more</a>
-						</div>
-					</div>
-					<div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
-						<div class="mdl-card__media">
-							<img class="article-image" src=" images/example-work05.jpg" border="0" alt="">
-						</div>
-						<div class="mdl-card__title">
-							<h2 class="mdl-card__title-text">Stand-alone article</h2>
-						</div>
-						<div class="mdl-card__supporting-text">
-							Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure enim nostrud aliqua consectetur ad consectetur sunt ullamco officia. Ex officia laborum et consequat duis.
-						</div>
-						<div class="mdl-card__actions mdl-card--border">
-							<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href="portfolio-example01.html">Read more</a>
-						</div>
-					</div>
-					<div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
-						<div class="mdl-card__media">
-							<img class="article-image" src=" images/example-work06.jpg" border="0" alt="">
-						</div>
-						<div class="mdl-card__title">
-							<h2 class="mdl-card__title-text">MDL website</h2>
-						</div>
-						<div class="mdl-card__supporting-text">
-							Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure enim nostrud aliqua consectetur ad consectetur sunt ullamco officia. Ex officia laborum et consequat duis.
-						</div>
-						<div class="mdl-card__actions mdl-card--border">
-							<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href="portfolio-example01.html">Read more</a>
-						</div>
-					</div>
-					<div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
-						<div class="mdl-card__media">
-							<img class="article-image" src=" images/example-work09.jpg" border="0" alt="">
-						</div>
-						<div class="mdl-card__title">
-							<h2 class="mdl-card__title-text">Consequat ut quis</h2>
-						</div>
-						<div class="mdl-card__supporting-text">
-							Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure enim nostrud aliqua consectetur ad consectetur sunt ullamco officia. Ex officia laborum et consequat duis.
-						</div>
-						<div class="mdl-card__actions mdl-card--border">
-							<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href="portfolio-example01.html">Read more</a>
-						</div>
-					</div>
-					-->
 				</div>
 				<footer class="mdl-mini-footer">
 					<div class="mdl-mini-footer__left-section">
@@ -190,15 +66,14 @@
 					</div>
 					<div class="mdl-mini-footer__right-section">
 						<ul class="mdl-mini-footer__link-list">
-							<li><a href="#">Help</a></li>
-							<li><a href="#">Information Sources</a></li>
+							<li><a href="mailto:adi.malhotra02@gmail.com">Contact: Aditya Malhotra</a></li>
+							<li><a href="mailto:sharma.apoorv@outlook.com">Apoorv Sharma </a></li>
 						</ul>
 					</div>
 				</footer>
 			</main>
 		</div>
 		<script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-
 	</body>
 
 </html>
